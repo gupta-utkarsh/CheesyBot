@@ -65,7 +65,7 @@ bot.dialog('/getCoupon', intents.matches('GetCoupons', [
 		session.userData.request.typeEntity = builder.EntityRecognizer.findEntity(args.entities, 'Demand::productType') ? builder.EntityRecognizer.findEntity(args.entities, 'Demand::productType').entity : null;
 
 		if(!session.userData.request.merchantEntity) {
-			builder.Prompts.choice(session, "Which merchant you want to buy food from?", ['Dominos', 'MacDonalds']);
+			builder.Prompts.choice(session, "Which merchant you want to buy food from?", ['Dominos', 'McDonalds']);
 		}
 		else if(!session.userData.request.amountEntity) {
 			builder.Prompts.number(session, "How much amount you want to spend?");
