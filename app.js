@@ -14,7 +14,7 @@ var bot;
 
 // Setup Restify Server
 server = restify.createServer();
-server.listen(0, 'https://couponbot.azurewebsites.net', function () {
+server.listen(process.env.port || process.env.PORT || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
 
