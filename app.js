@@ -115,17 +115,15 @@ bot.dialog('/getType', [
 		}
 		else {
 			session.send('%s, %d, %s',session.userData.request.merchantEntity, session.userData.request.amountEntity, session.userData.request.typeEntity);
+			session.endDialog();
 		}
 	},
 	function(session, results) {
 		if(results.response) {
 			session.userData.request.typeEntity = results.response.entity;
-			console.log(session.userData.request.merchantEntity, session.userData.request.amountEntity, session.userData.request.typeEntity);
 			session.send('%s, %d, %s',session.userData.request.merchantEntity, session.userData.request.amountEntity, session.userData.request.typeEntity);
 		}
-		else {
-			session.endDialog();
-		}
+		session.endDialog();
 	}
 ]);
 	// .matches(/^Give me coupons.*(Dominos|MacDonald|MacDonalds|McD|Domi).*(Rs|Rupees)\s*(\d{1,})/gi, function(session, args, next) {
