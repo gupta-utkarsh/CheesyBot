@@ -52,12 +52,11 @@ bot.dialog('/profile', [
 ]);
 
 bot.dialog('/help', function (session) {
-	session.send("Welcome to help");
 	session.send("You can search queries such as :");
 	session.send("Give me coupons");
 	session.send("'Give me coupons for dominos'");
 	session.send("or 'Give me coupons for less than Rs. 500'");
-	session.send("or 'Give me coupons for dominos under Rs. 500 for veg food");
+	session.send("or 'Give me coupons for dominos under Rs. 500 for veg food'");
 	session.endDialog();
 });
 
@@ -101,7 +100,6 @@ bot.dialog('/getCoupon', intents
 		function (session, results) {
 			if(results.response) {
 				session.userData.request.amountEntity = results.response;
-				session.endDialog();
 				session.beginDialog('/getType');
 			}
 			else {
@@ -109,7 +107,7 @@ bot.dialog('/getCoupon', intents
 				session.endDialog();
 			}
 		}
-	]).matches('/^(help)/i', function(session) {
+	]).matches(/^.*help.*/gi, function(session) {
 		session.endDialog();
 		session.beginDialog('/help');
 	}).onDefault(function(session, args) {
