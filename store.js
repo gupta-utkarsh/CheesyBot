@@ -41,13 +41,13 @@ module.exports = {
                         } else {
                             validProducts = null;
                         }   
-                        validOn = coupon.valid_bool == true ? ("valid on " + validProducts) : ("not valid on " + validProducts); 
+                        validOn = coupon.valid_bool == true ? ("- ```Valid on " + validProducts + "```") : ("- ```Not valid on " + validProducts + "```"); 
                     }
                     if(!free) {
                         if(coupon.discount_rupees) 
-                            discount = "You will get a discount of Rs. " + coupon.discount_rupees;
+                            discount = "- ```You will get a discount of Rs. " + coupon.discount_rupees + "```";
                         else if(coupon.discount_percent)
-                            discount = "You just got a " + coupon.discount_percent + "% discount";
+                            discount = "- ```You just got a " + coupon.discount_percent + "% discount" + "```";
                     }
                     resultCoupons.push({
                         code: coupon.code,
