@@ -163,7 +163,7 @@ function clean(merchant, amount, type) {
 	if(merchant.includes('dom') || merchant.includes('Dom') || merchant.includes('DOM')) {
 		merchant = 'dominos';
 	}
-	else if(merchant.includes('don') || merchant.includes('Don') || merchant.includes('DON')) {
+	else if(merchant.includes('don') || merchant.includes('Don') || merchant.includes('DON') || merchant.includes('McD') || merchant.includes('MCD') || merchant.includes('Mcd') || merchant.includes('mcd')) {
 		merchant = 'mcdonalds';
 	} 
 	if(typeof amount == 'number') {
