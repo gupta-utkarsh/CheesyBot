@@ -61,10 +61,6 @@ bot.dialog('/help', function (session) {
 });
 
 bot.dialog('/getCoupon', intents
-	.matches('/help/i', function(session) {
-		session.endDialog();
-		session.beginDialog('/help');
-	})
 	.matches('GetCoupons', [
 		function (session, args, next) {
 			session.send("Welcome! We are analyzing your query");
@@ -112,7 +108,10 @@ bot.dialog('/getCoupon', intents
 				session.endDialog();
 			}
 		}
-	]).onDefault(function(session, args) {
+	]).matches('/^(help)/i', function(session) {
+		session.endDialog();
+		session.beginDialog('/help');
+	}).onDefault(function(session, args) {
 		session.send("Please enter query in the form 'Give me coupons for Dominos under Rs 500.'");
 		session.endDialog();
 	}));
@@ -158,10 +157,10 @@ bot.dialog('/getType', [
 ]);
 
 function clean(merchant, amount, type) {
-	if(merchant.match('/(Dominos|Domi|Domino)/gi')) {
+	if(merchant.includes('dom') || merchant.includes('Dom') || merchant.includes('DOM')) {
 		merchant = 'dominos';
 	}
-	else if(merchant.match('/(McDonalds|McD|McDonald|mcDonalds|mcDonalds)/gi')) {
+	else if(merchant.includes('don') || merchant.includes('Don') || merchant.includes('DON')) {
 		merchant = 'mcdonalds';
 	} 
 	if(typeof amount == 'number') {
@@ -181,7 +180,10 @@ function clean(merchant, amount, type) {
 function couponAsAttachment(coupon) {
     let subtitle;
     if(coupon.free) {
-    	subtitle = "Get " + coupon.free + coupon.validOn;
+    	subtitle = "Free : Get " + coupon.free + ' ' +  coupon.validOn;
+    }
+    else if(coupon.discount) {
+    	subtitle = coupon.discount + ' ' + coupon.validOn;
     }
 
     return new builder.HeroCard()
