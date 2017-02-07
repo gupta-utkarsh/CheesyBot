@@ -110,6 +110,10 @@ bot.dialog('/getCoupon', intents
 	]).matches(/^.*help.*/gi, function(session) {
 		session.endDialog();
 		session.beginDialog('/help');
+	})
+	.matches(/^.*bye.*/gi, function(session) {
+		session.send('Bye Good to see ya!');
+		session.endDialog();
 	}).onDefault(function(session, args) {
 		session.send("Please enter query in the form 'Give me coupons for Dominos under Rs 500.'");
 		session.endDialog();
