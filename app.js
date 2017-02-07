@@ -29,8 +29,9 @@ bot.dialog('/', [
     function (session, args, next) {
         if (!session.userData.name) {
             session.beginDialog('/profile');
+        } else {
+        	next();
         }
-        next();
     },
     function (session, results) {
         session.send('Hello %s!', session.userData.name);
@@ -165,8 +166,8 @@ function clean(merchant, amount, type) {
 	} 
 	if(typeof amount == 'number') {
 		amount = amount.toString();
-		amount = parseInt(amount.replace(/\D/g, ''));
 	}
+	amount = parseInt(amount.replace(/\D/g, ''));
 	if(type == 'Any') {
 		type = null;
 	}
@@ -180,14 +181,15 @@ function clean(merchant, amount, type) {
 function couponAsAttachment(coupon) {
     let subtitle;
     if(coupon.free) {
-    	subtitle = "Free : Get " + coupon.free + ' ' +  coupon.validOn;
+    	subtitle = "=> Free : Get " + coupon.free + ' => ' +  coupon.validOn;
     }
     else if(coupon.discount) {
-    	subtitle = coupon.discount + ' ' + coupon.validOn;
+    	subtitle = "=> " + coupon.discount + ' => ' + coupon.validOn;
     }
 
     return new builder.HeroCard()
         .title(coupon.code)
-        .subtitle(subtitle)
+        .subtitle(coupon.merchant)
+        .text(subtitle)
         .images([new builder.CardImage().url(coupon.image)]);
 }
