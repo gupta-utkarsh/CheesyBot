@@ -4,7 +4,6 @@ var coupons = require('./data');
 
 module.exports = {
     getCoupons: function (payload) {
-        console.log(payload);
         return new Promise(function (resolve) {
             var resultCoupons = [];
             coupons.forEach(function(coupon, coupon_index, coupons) {
