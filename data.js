@@ -1,4 +1,4 @@
-[
+var coupons = [
   {
     "merchant": "mcdonalds",
     "code": "CD275",
@@ -171,4 +171,6 @@
           "online"
       ]
   }
-]
+];
+
+module.exports = coupons;

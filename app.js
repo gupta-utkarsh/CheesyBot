@@ -1,12 +1,13 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 var Store = require('./store');
+var menu = require('./menu');
 var server;
 var connector;
 var bot;
 var recognizer;
 var intents;
-const LuisModelUrl = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/b821888b-5a4c-42b7-8f01-80f3f888dc61?subscription-key=2ce69e2f40a1471eb70dea8344bf8b0b';
+const LuisModelUrl = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/b821888b-5a4c-42b7-8f01-80f3f888dc61?subscription-key=54485818c08e4d32a58791c32521deaa&verbose=false&q=';
 
 // Setup Restify Server
 server = restify.createServer();
@@ -27,17 +28,19 @@ intents = new builder.IntentDialog({ recognizers: [recognizer] });
 
 bot.dialog('/', [
     function (session, args, next) {
-        if (!session.userData.name) {
-            session.beginDialog('/profile');
-        } else {
-        	next();
-        }
+      if(!session.userData) {
+        session.userData = Object.request({});
+      }
+      if (!session.userData.name) {
+          session.beginDialog('/profile');
+      } else {
+      	next();
+      }
     },
     function (session, results) {
         session.send('Hello %s!', session.userData.name);
         session.send('Try asking me queries such as "Give me Coupons"');
-        session.userData.request = Object.create({});
-        session.beginDialog('/getCoupon');
+        session.beginDialog('/init');
     }
 ]);
 
@@ -60,53 +63,18 @@ bot.dialog('/help', function (session) {
 	session.endDialog();
 });
 
-bot.dialog('/getCoupon', intents
+bot.dialog('/init', intents
 	.matches('GetCoupons', [
 		function (session, args, next) {
 			session.send("Welcome! We are analyzing your query");
 			session.userData.request = Object.create({});
 			session.userData.request.merchantEntity = builder.EntityRecognizer.findEntity(args.entities, 'merchant') ? builder.EntityRecognizer.findEntity(args.entities, 'merchant').entity : null;
-			session.userData.request.amountEntity = builder.EntityRecognizer.findEntity(args.entities, 'amount') ? builder.EntityRecognizer.findEntity(args.entities, 'amount').entity : null;	
+			session.userData.request.amountEntity = builder.EntityRecognizer.findEntity(args.entities, 'amount') ? builder.EntityRecognizer.findEntity(args.entities, 'amount').entity : null;
 			session.userData.request.typeEntity = builder.EntityRecognizer.findEntity(args.entities, 'Demand::productType') ? builder.EntityRecognizer.findEntity(args.entities, 'Demand::productType').entity : null;
 
-			if(!session.userData.request.merchantEntity) {
-				builder.Prompts.choice(session, "Which merchant you want to buy food from?", ['Dominos', 'McDonalds']);
-			}
-			else if(!session.userData.request.amountEntity) {
-				builder.Prompts.number(session, "How much amount you want to spend?");
-			}
-			else {
-				session.endDialog();
-				session.beginDialog('/getType');				
-			}
-		},
-		function (session, results) {
-			if(results.response) {
-				if(session.userData.request.merchantEntity) {
-					session.userData.request.amountEntity = results.response;
-					session.endDialog();
-					session.beginDialog('/getType');
-				}
-				else {
-					session.userData.request.merchantEntity = results.response.entity; 
-					builder.Prompts.number(session, "How much money you want to spend?");
-				}
-			}
-			else {
-				session.send("Please enter query in the form 'Give me coupons for Dominos under Rs 500.'");
-				session.endDialog();
-			}
-		},
-		function (session, results) {
-			if(results.response) {
-				session.userData.request.amountEntity = results.response;
-				session.beginDialog('/getType');
-			}
-			else {
-				session.send("Please enter query in the form 'Give me coupons for Dominos under Rs 500.'");
-				session.endDialog();
-			}
-		}
+      session.endDialog();
+      session.beginDialog('/selectMerchant');
+    }
 	]).matches(/^.*help.*/gi, function(session) {
 		session.endDialog();
 		session.beginDialog('/help');
@@ -117,46 +85,107 @@ bot.dialog('/getCoupon', intents
 	}).onDefault(function(session, args) {
 		session.send("Please enter query in the form 'Give me coupons for Dominos under Rs 500.'");
 		session.endDialog();
-	}));
+  })
+);
 
-bot.dialog('/getType', [
+bot.dialog('/selectMerchant', [
+  function(session, args, next) {
+    if(!session.userData.request.merchantEntity) {
+      builder.Prompts.choice(session, "Which merchant you want to buy food from?", ['Dominos', 'McDonalds']);
+    }
+    else {
+      next();
+    }
+  },
+  function(session, results) {
+    if(results.response) {
+      session.userData.request.merchantEntity = results.response.entity;
+    }
+    session.endDialog();
+    if(!session.userData.request.amountEntity) {
+      session.beginDialog('/selectOrder');
+    }
+    else {
+      session.beginDialog('/selectType');
+    }
+  }
+]);
+
+bot.dialog('/selectOrder', [
+  function(session, args, next) {
+    var merchant = session.userData.request.merchantEntity;
+    if(merchant.includes('dom') || merchant.includes('Dom') || merchant.includes('DOM')) {
+      merchant = 'dominos';
+    }
+    else if(merchant.includes('don') || merchant.includes('Don') || merchant.includes('DON')) {
+      merchant = 'mcdonalds';
+    }
+    builder.Prompts.choice(session, "What would you like?", menu.getItems(merchant));
+  },
+  function(session, results) {
+    var amount;
+    var merchant = session.userData.request.merchantEntity;
+    if(merchant.includes('dom') || merchant.includes('Dom') || merchant.includes('DOM')) {
+      merchant = 'dominos';
+    }
+    else if(merchant.includes('don') || merchant.includes('Don') || merchant.includes('DON')) {
+      merchant = 'mcdonalds';
+    }
+    if (results.response) {
+      if (!session.userData.request.typeEntity) {
+        session.userData.request.amountEntity = 0;
+        session.userData.request.typeEntity = [results.response.entity];
+      }
+      else {
+        session.userData.request.typeEntity.push(results.response.entity);
+      }
+      session.userData.request.amountEntity += menu.getMoney(merchant, results.response.entity);
+    }
+    builder.Prompts.confirm(session, "Do you want to add more items ?");
+  },
+  function(session, results) {
+    if(results.response) {
+      session.endDialog();
+      session.beginDialog('/selectOrder');
+    }
+    else {
+      session.beginDialog('/showCoupons');
+    }
+  }
+]);
+
+bot.dialog('/selectType', [
 	function(session, args, next) {
+    var message;
 		if(!session.userData.request.typeEntity) {
 			builder.Prompts.choice(session, "Would you prefer?", ["Veg", "Non Veg", "Any"])
 		}
-		else {
-			let payload = clean(merchant, amount, type);
-			Store.getCoupons(payload)
-				.then((coupons) => {
-					session.send('I found %d coupons:', coupons.length);
-
-					var message = new builder.Message()
-						.attachmentLayout(builder.AttachmentLayout.carousel)
-						.attachments(coupons.map(couponAsAttachment));
-
-                    session.send(message);
-                    session.endDialog();
-				});
-		}
+    else {
+      next();
+    }
 	},
 	function(session, results) {
-		if(results.response) {
+    var message;
+		if(results.response)
 			session.userData.request.typeEntity = results.response.entity;
-			let payload = clean(session.userData.request.merchantEntity, session.userData.request.amountEntity, session.userData.request.typeEntity);
-			Store.getCoupons(payload)
-				.then((coupons) => {
-					session.send('I found %d coupons:', coupons.length);
-
-					var message = new builder.Message()
-						.attachmentLayout(builder.AttachmentLayout.carousel)
-						.attachments(coupons.map(couponAsAttachment));
-
-                    session.send(message);
-                    session.endDialog();
-				});
-		}
 		session.endDialog();
+    session.beginDialog('/showCoupons');
 	}
+]);
+
+bot.dialog('/showCoupons', [
+  function(session, args, next) {
+    let payload = clean(session.userData.request.merchantEntity, session.userData.request.amountEntity, session.userData.request.typeEntity);
+    Store.getCoupons(payload)
+    .then((coupons) => {
+      session.send('I found %d coupons:', coupons.length);
+      message = new builder.Message()
+        .attachmentLayout(builder.AttachmentLayout.carousel)
+        .attachments(coupons.map(couponAsAttachment));
+      session.send(message);
+      session.endDialog();
+    });
+  }
 ]);
 
 function clean(merchant, amount, type) {
@@ -165,7 +194,7 @@ function clean(merchant, amount, type) {
 	}
 	else if(merchant.includes('don') || merchant.includes('Don') || merchant.includes('DON') || merchant.includes('McD') || merchant.includes('MCD') || merchant.includes('Mcd') || merchant.includes('mcd')) {
 		merchant = 'mcdonalds';
-	} 
+	}
 	if(typeof amount == 'number') {
 		amount = amount.toString();
 	}
@@ -173,6 +202,9 @@ function clean(merchant, amount, type) {
 	if(type == 'Any') {
 		type = null;
 	}
+  else if(!Array.isArray(type)) {
+    type = [type];
+  }
 	return {
 		merchant: merchant,
 		amount: amount,
