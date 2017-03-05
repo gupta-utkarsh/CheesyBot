@@ -19,7 +19,11 @@ var coupons = [
     "minimum_product": null,
     "minimum_money": "150",
     "valid_bool": true,
-    "valid_productType": "online",
+    "valid_productType":
+    [ "mcchicken",
+      "mcveggie",
+      "mcegg"
+    ],
     "coupon_date": "mondays"
   },
   {
@@ -72,7 +76,11 @@ var coupons = [
     "minimum_product": "medium or large meal",
     "minimum_money": null,
     "valid_bool": true,
-    "valid_productType": "online orders"
+    "valid_productType":
+    [ "mcchicken",
+      "mcveggie",
+      "mcegg"
+    ]
   },
   {
     "merchant": "mcdonalds",

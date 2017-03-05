@@ -54,7 +54,7 @@ bot.dialog('/profile', [
     session.userData.name = results.response;
     session.endDialog();
   }
-  ]);
+]);
 
 bot.dialog('/help', function (session) {
 	session.send("You can search queries such as :");
