@@ -136,21 +136,17 @@ bot.dialog('/selectOrder', [
     var merchant = session.userData.request.merchantEntity;
     if(merchant.includes('dom') || merchant.includes('Dom') || merchant.includes('DOM')) {
       merchant = 'dominos';
+      session.userData.request.merchantEntity = "dominos";
     }
     else if(merchant.includes('don') || merchant.includes('Don') || merchant.includes('DON')) {
       merchant = 'mcdonalds';
+      session.userData.request.merchantEntity = 'mcdonalds';
     }
     builder.Prompts.choice(session, "What would you like?", menu.getItems(merchant));
   },
   function(session, results) {
     var amount;
     var merchant = session.userData.request.merchantEntity;
-    if(merchant.includes('dom') || merchant.includes('Dom') || merchant.includes('DOM')) {
-      merchant = 'dominos';
-    }
-    else if(merchant.includes('don') || merchant.includes('Don') || merchant.includes('DON')) {
-      merchant = 'mcdonalds';
-    }
     if (results.response) {
       if (!session.userData.request.typeEntity) {
         session.userData.request.amountEntity = 0;
@@ -196,6 +192,7 @@ bot.dialog('/selectType', [
 bot.dialog('/showCoupons', [
   function(session, args, next) {
     let payload = clean(session.userData.request.merchantEntity, session.userData.request.amountEntity, session.userData.request.typeEntity);
+    console.log(session.userData.request.typeEntity);
     session.send("Your current order");
     session.userData.request.discountEntity = 0;
     session.userData.request.freeEntity = [];
