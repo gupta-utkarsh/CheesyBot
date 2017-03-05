@@ -139,7 +139,9 @@ var coupons = [
       "minimum_product": null,
       "minimum_money": "400",
       "valid_bool": true,
-      "valid_productType": null
+      "valid_productType": [
+        "simply veg"
+      ]
   },
   {
       "merchant": "dominos",
@@ -149,7 +151,7 @@ var coupons = [
       "discount_percent": null,
       "minimum_product": null,
       "minimum_money": "399",
-      "valid_bool": false,
+      "valid_bool": true,
       "valid_productType": [
           "simply veg",
           "simply non - veg",
