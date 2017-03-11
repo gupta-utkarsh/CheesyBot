@@ -2,14 +2,14 @@ var Promise = require('bluebird');
 var request = require('request');
 var coupons = require('./data');
 
-const APIURL = "https://westus.api.cognitive.microsoft.com/recommendations/v4.0/models/2cc01902-44a8-41e8-8c8a-9834dda07a09/recommend/user?userId='1'&numberOfResults=3&includeMetadata=true&buildId=1614244&ItemsIds=11";
+const APIURL = process.env.RECOMMENDATIONS_URL + "?userId='1'&numberOfResults=3&includeMetadata=true&buildId=1614244&ItemsIds=11";
 
 module.exports = {
   getRecommendations: function (payload) {
     return new Promise(function (resolve) {
       request.get({
         headers: {
-          "Ocp-Apim-Subscription-Key": "96b0ac9ddc704529b2773bc4f26524e1",
+          "Ocp-Apim-Subscription-Key": process.env.RECOMMENDATIONS_KEY,
         },
         url: APIURL
       }, function(error, res, body) {

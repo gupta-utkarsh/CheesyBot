@@ -1,3 +1,4 @@
+require('dotenv-extended').load();
 var restify = require('restify');
 var builder = require('botbuilder');
 var Store = require('./store');
@@ -9,7 +10,7 @@ var bot;
 var recognizer;
 var intents;
 var coupons = require('./data');
-const LuisModelUrl = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/b821888b-5a4c-42b7-8f01-80f3f888dc61?subscription-key=54485818c08e4d32a58791c32521deaa&verbose=false&q=';
+const LuisModelUrl = process.env.LUIS_MODEL_URL + '&q=';
 
 // Setup Restify Server
 server = restify.createServer();
@@ -19,8 +20,8 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 
 // Create chat bot
 connector = new builder.ChatConnector({
-  appId: '0cb06353-d40c-45e6-9ad5-c2b77faeb9e1',
-  appPassword: '9M85qSBFFN1DnEQ0xKh9c2C'
+  appId: process.env.APP_ID,
+  appPassword: process.env.APP_PASSWORD
 });
 bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
