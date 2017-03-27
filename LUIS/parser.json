@@ -1,0 +1,1592 @@
+{
+  "luis_schema_version": "2.0.0",
+  "versionId": "0.1",
+  "name": "Parser1",
+  "desc": "",
+  "culture": "en-us",
+  "intents": [
+    {
+      "name": "GetCouponDetails"
+    },
+    {
+      "name": "GetValidity"
+    },
+    {
+      "name": "None"
+    }
+  ],
+  "entities": [
+    {
+      "name": "Discount",
+      "children": [
+        "Rs",
+        "percent"
+      ]
+    },
+    {
+      "name": "Free"
+    },
+    {
+      "name": "minimum",
+      "children": [
+        "product",
+        "moeny"
+      ]
+    },
+    {
+      "name": "Valid",
+      "children": [
+        "Products",
+        "ProductType",
+        "Bool"
+      ]
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "bing_entities": [
+    "datetime"
+  ],
+  "actions": [],
+  "model_features": [
+    {
+      "name": "InvalidityVerbs",
+      "mode": true,
+      "words": "not valid,not applicable,invalid",
+      "activated": true
+    },
+    {
+      "name": "products",
+      "mode": true,
+      "words": "saucy wrap,chicken burger,mcveggie,mcchicken,chicken mcgrill",
+      "activated": true
+    },
+    {
+      "name": "productTypes",
+      "mode": true,
+      "words": "meal,meals,veg,non - veg,non veg,veg - pizzas,veg pizzas,non - veg pizzas,veg burger,non - veg burger,non veg burger,simply veg,simply non - veg,medium,large,regular,pizzas,breads,burger,burgers",
+      "activated": true
+    },
+    {
+      "name": "ValidityVerbs",
+      "mode": true,
+      "words": "valid,applicable",
+      "activated": true
+    },
+    {
+      "name": "verbs1",
+      "mode": true,
+      "words": "Get,get,flat,free",
+      "activated": true
+    },
+    {
+      "name": "verbs2",
+      "mode": true,
+      "words": "Order,Pay,order,pay,Buy,purchase,Purchase,orders",
+      "activated": true
+    }
+  ],
+  "regex_features": [],
+  "utterances": [
+    {
+      "text": "not valid on simply veg, simply non-veg, & combos",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 13,
+          "endPos": 22
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 25,
+          "endPos": 38
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 43,
+          "endPos": 48
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "buy 1 pizza get 1 free",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 10
+        },
+        {
+          "entity": "Free",
+          "startPos": 16,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "free white pasta italiano on orders above rs. 399",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 42,
+          "endPos": 48
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "flat rs. 101 off on orders above rs. 400",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::Rs",
+          "startPos": 5,
+          "endPos": 11
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 33,
+          "endPos": 39
+        }
+      ]
+    },
+    {
+      "text": "buy 1 pizza & get 50% off on second pizza",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 18,
+          "endPos": 20
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 10
+        },
+        {
+          "entity": "Free",
+          "startPos": 29,
+          "endPos": 40
+        }
+      ]
+    },
+    {
+      "text": "enjoy 20% off on minimum bill of rs. 400",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 6,
+          "endPos": 8
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 33,
+          "endPos": 39
+        }
+      ]
+    },
+    {
+      "text": "flat 15% off on all orders above rs 400",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 5,
+          "endPos": 7
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 33,
+          "endPos": 38
+        }
+      ]
+    },
+    {
+      "text": "enjoy 10% off on orders above rs. 350",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 6,
+          "endPos": 8
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 30,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "but one pizza and get second free.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 12
+        },
+        {
+          "entity": "Free",
+          "startPos": 22,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "get cashback of rs. 100 on purchase of pizza italiano.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::Rs",
+          "startPos": 16,
+          "endPos": 22
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 39,
+          "endPos": 52
+        }
+      ]
+    },
+    {
+      "text": "buy pasta and get cashback of rs. 300.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::Rs",
+          "startPos": 30,
+          "endPos": 36
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "30% off on purchase of 400 and above.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 0,
+          "endPos": 2
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 23,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "but 1 pizza and get 50% off on second.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 20,
+          "endPos": 22
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 10
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 31,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "buy 1 pizza and get second free.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 10
+        },
+        {
+          "entity": "Free",
+          "startPos": 20,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "buy 2 pizzas and get 30% on third pizza.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 21,
+          "endPos": 23
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 11
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 28,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "get 30% off on purchase of rs 300 and above.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 4,
+          "endPos": 6
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 27,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "buy 1 burger and get 1 free.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 11
+        },
+        {
+          "entity": "Free",
+          "startPos": 21,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "any meal free on orders of rs. 369 and above.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 27,
+          "endPos": 33
+        },
+        {
+          "entity": "Free",
+          "startPos": 0,
+          "endPos": 7
+        }
+      ]
+    },
+    {
+      "text": "pay via freecharge and get 25% off on orders above rs. 400",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 27,
+          "endPos": 29
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 51,
+          "endPos": 57
+        }
+      ]
+    },
+    {
+      "text": "valid only on orders above rs. 400.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 27,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "not applicable on sun mon thu",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "applicable only on tuesdays and mondays",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 9
+        }
+      ]
+    },
+    {
+      "text": "free wrap/burger on 189+",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 20,
+          "endPos": 22
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "exclusive: 2 free mcchicken/mcveggie burgers on rs. 275+ (online order)",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 48,
+          "endPos": 54
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 58,
+          "endPos": 69
+        },
+        {
+          "entity": "Free",
+          "startPos": 11,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "any meal free on orders of rs. 369 & above (online order)",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 27,
+          "endPos": 33
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 44,
+          "endPos": 55
+        },
+        {
+          "entity": "Free",
+          "startPos": 0,
+          "endPos": 7
+        }
+      ]
+    },
+    {
+      "text": "free burger on orders above rs. 319 (online order)",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 28,
+          "endPos": 34
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 37,
+          "endPos": 48
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "free mcchicken or mcveggie on rs. 150 (mondays)",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 30,
+          "endPos": 36
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "free burger on orders above rs . 319( online order)",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 28,
+          "endPos": 35
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 38,
+          "endPos": 49
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "get rs 50 off on purchase of rs 400 and above",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::Rs",
+          "startPos": 4,
+          "endPos": 8
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 29,
+          "endPos": 34
+        }
+      ]
+    },
+    {
+      "text": "rs 100 off on purchase of 400 and above.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::Rs",
+          "startPos": 0,
+          "endPos": 5
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 26,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "discount of rs 100 on 300 and above",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::Rs",
+          "startPos": 12,
+          "endPos": 17
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 22,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "2 free mcchicken/mcveggie burgers on all orders above rs. 275. valid on online orders only.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 54,
+          "endPos": 60
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 72,
+          "endPos": 84
+        },
+        {
+          "entity": "Free",
+          "startPos": 0,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "mcveggie burgers on all orders above rs. 300. valid on store orders only.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 37,
+          "endPos": 43
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 55,
+          "endPos": 66
+        },
+        {
+          "entity": "Free",
+          "startPos": 0,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "free saucy wrap, mcaloo, mcegg or chicken mcgrill on all orders above rs. 189. valid only on online orders",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 70,
+          "endPos": 76
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 93,
+          "endPos": 98
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 14
+        },
+        {
+          "entity": "Free",
+          "startPos": 17,
+          "endPos": 22
+        },
+        {
+          "entity": "Free",
+          "startPos": 25,
+          "endPos": 29
+        },
+        {
+          "entity": "Free",
+          "startPos": 34,
+          "endPos": 48
+        }
+      ]
+    },
+    {
+      "text": "any meal of your choice free on all orders of rs. 369 and above. applicable only on online orders",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 46,
+          "endPos": 52
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 84,
+          "endPos": 89
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 65,
+          "endPos": 74
+        },
+        {
+          "entity": "Free",
+          "startPos": 4,
+          "endPos": 7
+        }
+      ]
+    },
+    {
+      "text": "free mcchicken or mcveggie on minimum purchase of rs. 150. valid only on mondays. valid only on online orders.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 50,
+          "endPos": 56
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 96,
+          "endPos": 101
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 82,
+          "endPos": 86
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "free burger of your choice on purchases above rs. 319. applicable only on online orders.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 46,
+          "endPos": 52
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 74,
+          "endPos": 79
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 55,
+          "endPos": 64
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "mcflurry or soft serve free on purchase of any medium or large meal. valid on online orders only.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::product",
+          "startPos": 47,
+          "endPos": 66
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 78,
+          "endPos": 90
+        },
+        {
+          "entity": "Free",
+          "startPos": 0,
+          "endPos": 7
+        },
+        {
+          "entity": "Free",
+          "startPos": 12,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "3 free veg burgers on purchase of rs. 350 and above. valid on online orders only.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 34,
+          "endPos": 40
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 62,
+          "endPos": 74
+        },
+        {
+          "entity": "Free",
+          "startPos": 7,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "free mcveggie on purchase of rs. 450 and above. only on online order",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 29,
+          "endPos": 35
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 56,
+          "endPos": 67
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "buy 1 pizza & get 50% off on the second pizza.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 18,
+          "endPos": 20
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 10
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 33,
+          "endPos": 38
+        }
+      ]
+    },
+    {
+      "text": "order for a minimum amount of rs. 399 and get a free white pasta italiano at dominos",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 30,
+          "endPos": 36
+        },
+        {
+          "entity": "Free",
+          "startPos": 53,
+          "endPos": 72
+        }
+      ]
+    },
+    {
+      "text": "flat rs. 101 off on orders above rs. 400.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::Rs",
+          "startPos": 5,
+          "endPos": 11
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 33,
+          "endPos": 39
+        }
+      ]
+    },
+    {
+      "text": "pay via freecharge and get 25% off on orders above rs. 400.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 27,
+          "endPos": 29
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 51,
+          "endPos": 57
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 8,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "order for a minimum amount of rs. 399 and get a free white pasta italiano at dominos.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 30,
+          "endPos": 36
+        },
+        {
+          "entity": "Free",
+          "startPos": 53,
+          "endPos": 72
+        }
+      ]
+    },
+    {
+      "text": "get 10% off on pizzas and breads on a minimum order of rs. 400",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 4,
+          "endPos": 6
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 55,
+          "endPos": 61
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 15,
+          "endPos": 20
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 26,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "free medium soft serve on purchase of any medium or large meal.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::product",
+          "startPos": 42,
+          "endPos": 61
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "mcflurry or soft serve free on purchase of any medium or large meal",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::product",
+          "startPos": 47,
+          "endPos": 66
+        },
+        {
+          "entity": "Free",
+          "startPos": 0,
+          "endPos": 7
+        },
+        {
+          "entity": "Free",
+          "startPos": 12,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "mcflurry or soft serve free on purchase of any medium or large meal.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::product",
+          "startPos": 47,
+          "endPos": 66
+        },
+        {
+          "entity": "Free",
+          "startPos": 0,
+          "endPos": 7
+        },
+        {
+          "entity": "Free",
+          "startPos": 12,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "fri-sat-sun offer: flat 20% off on orders above rs. 400",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 24,
+          "endPos": 26
+        },
+        {
+          "entity": "minimum::moeny",
+          "startPos": 48,
+          "endPos": 54
+        }
+      ]
+    },
+    {
+      "text": "free saucy wrap, mcaloo, mcegg or chicken mcgrill on all orders above rs. 189.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 70,
+          "endPos": 76
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 14
+        },
+        {
+          "entity": "Free",
+          "startPos": 17,
+          "endPos": 22
+        },
+        {
+          "entity": "Free",
+          "startPos": 25,
+          "endPos": 29
+        },
+        {
+          "entity": "Free",
+          "startPos": 34,
+          "endPos": 48
+        }
+      ]
+    },
+    {
+      "text": "free burger of your choice on purchases above rs. 319.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 46,
+          "endPos": 52
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "buy 1 pizza and get 50% off on the second pizza.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "Discount::percent",
+          "startPos": 20,
+          "endPos": 22
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 4,
+          "endPos": 10
+        },
+        {
+          "entity": "minimum::product",
+          "startPos": 35,
+          "endPos": 40
+        }
+      ]
+    },
+    {
+      "text": "any meal of your choice free on all orders of rs. 369 and above.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 46,
+          "endPos": 52
+        },
+        {
+          "entity": "Free",
+          "startPos": 4,
+          "endPos": 7
+        }
+      ]
+    },
+    {
+      "text": "free burger on orders above rs . 319( online order)e",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 28,
+          "endPos": 35
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 38,
+          "endPos": 49
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "2 free mcchicken/mcveggie burgers on all orders above rs. 275. valid on online orders only",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 54,
+          "endPos": 60
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 72,
+          "endPos": 84
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 63,
+          "endPos": 67
+        },
+        {
+          "entity": "Free",
+          "startPos": 0,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "free mcchicken or mcveggie on minimum purchase of rs. 150.",
+      "intent": "GetCouponDetails",
+      "entities": [
+        {
+          "entity": "minimum::moeny",
+          "startPos": 50,
+          "endPos": 56
+        },
+        {
+          "entity": "Free",
+          "startPos": 5,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "valid only on simply veg, simply non-veg, & combos",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 14,
+          "endPos": 23
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 26,
+          "endPos": 39
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 44,
+          "endPos": 49
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "not valid on regular size pizzas",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 13,
+          "endPos": 24
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "valid only for online orders.",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 15,
+          "endPos": 20
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "not valid on simply non-veg pizzas.",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 13,
+          "endPos": 26
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "valid only on royal pizzas.",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 14,
+          "endPos": 18
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "only valid on veg-treat and above.",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 14,
+          "endPos": 22
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 5,
+          "endPos": 9
+        }
+      ]
+    },
+    {
+      "text": "not valid on veg-feast pizzas.",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 13,
+          "endPos": 21
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "valid only on mondays",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "valid only on online orders",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 14,
+          "endPos": 19
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "applicable only on online orders.",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 19,
+          "endPos": 24
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 9
+        }
+      ]
+    },
+    {
+      "text": "not applicable on non veg orders",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 18,
+          "endPos": 24
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "valid only before 10 pm",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "applicable only on purchase of veg orders",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 31,
+          "endPos": 33
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 9
+        }
+      ]
+    },
+    {
+      "text": "not applicable on veg orders",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 13
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 18,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "not applicable on simply-veg pizzas",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 13
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 18,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "not valid on third party wallet payments.",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 13,
+          "endPos": 39
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "not valid on cheeseburst pizza",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::Products",
+          "startPos": 13,
+          "endPos": 29
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "valid only on veg pizzas",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 14,
+          "endPos": 23
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "valid only on veg feast pizzas",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 14,
+          "endPos": 22
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "not valid on non veg burgers",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 13,
+          "endPos": 19
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "not valid on combos, beverages and other add-ons like garlic breads, pastas and is not valid on simply veg, simply non-veg pizzas, regular size pizzas.",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 13,
+          "endPos": 18
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 96,
+          "endPos": 105
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 108,
+          "endPos": 128
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 131,
+          "endPos": 142
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 83,
+          "endPos": 91
+        },
+        {
+          "entity": "Free",
+          "startPos": 61,
+          "endPos": 66
+        }
+      ]
+    },
+    {
+      "text": "not valid on regular size pizzas (only valid on medium & large size).",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 13,
+          "endPos": 24
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 48,
+          "endPos": 66
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 39,
+          "endPos": 43
+        }
+      ]
+    },
+    {
+      "text": "not valid on simply veg, simply non-veg, & combos.",
+      "intent": "GetValidity",
+      "entities": [
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 13,
+          "endPos": 22
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 25,
+          "endPos": 38
+        },
+        {
+          "entity": "Valid::ProductType",
+          "startPos": 43,
+          "endPos": 48
+        },
+        {
+          "entity": "Valid::Bool",
+          "startPos": 0,
+          "endPos": 8
+        }
+      ]
+    }
+  ]
+}

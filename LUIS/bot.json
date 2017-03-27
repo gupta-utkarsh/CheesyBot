@@ -1,0 +1,839 @@
+{
+  "luis_schema_version": "2.0.0",
+  "versionId": "0.1",
+  "name": "bot1",
+  "desc": "",
+  "culture": "en-us",
+  "intents": [
+    {
+      "name": "GetCoupons"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "Recommend"
+    },
+    {
+      "name": "ShowMenu"
+    }
+  ],
+  "entities": [
+    {
+      "name": "amount"
+    },
+    {
+      "name": "Demand",
+      "children": [
+        "productType",
+        "item"
+      ]
+    },
+    {
+      "name": "merchant"
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "bing_entities": [],
+  "actions": [
+    {
+      "actionName": "GetCoupons",
+      "intentName": "GetCoupons",
+      "channel": null,
+      "actionParameters": [
+        {
+          "parameterName": "merchant",
+          "entityName": "merchant",
+          "required": true,
+          "question": "What would you like?",
+          "phraseListFeatureName": "Merchants"
+        },
+        {
+          "parameterName": "amount",
+          "entityName": "amount",
+          "required": true,
+          "question": "How much money you got?",
+          "phraseListFeatureName": "amount"
+        },
+        {
+          "parameterName": "type",
+          "entityName": "Demand::productType",
+          "required": false,
+          "question": "",
+          "phraseListFeatureName": "productType"
+        }
+      ]
+    }
+  ],
+  "model_features": [
+    {
+      "name": "amount",
+      "mode": true,
+      "words": "rs,Rs,Rs .,rs .,rupees,rupee",
+      "activated": true
+    },
+    {
+      "name": "Discounts",
+      "mode": true,
+      "words": "coupons,Coupons,discounts,discount,cheap,free,offer,offers",
+      "activated": true
+    },
+    {
+      "name": "menu",
+      "mode": true,
+      "words": "menu,menus,list",
+      "activated": true
+    },
+    {
+      "name": "Merchants",
+      "mode": true,
+      "words": "Dominos,McD,mcd,Mc Donalds,macdonalds,MacDonalds,Domi,dominos,domi",
+      "activated": true
+    },
+    {
+      "name": "productType",
+      "mode": true,
+      "words": "veg,non - veg,non veg,pizzas,burgers,non - veg pizzas,non - veg burgers,veg pizzas,veg burgers,pizza,burger,simply veg",
+      "activated": true
+    },
+    {
+      "name": "recommend",
+      "mode": true,
+      "words": "recommendations,recommend,suggest,suggestions,suggesting,recommending,recomending,recomend,predict,surprise,new,hungry",
+      "activated": true
+    }
+  ],
+  "regex_features": [],
+  "utterances": [
+    {
+      "text": "get me menu for dominos",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 16,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "what is the menu for dominos?",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 21,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "tell me dominos menu.",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 8,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "get me coupon for dominos",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 18,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "fetch me coupons for pizza hut",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 21,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "get all coupons",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what are the coupons for dominos?",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 25,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "tell me coupons for mcd",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "get me coupons for dominos.",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 19,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "get me coupons for mcd",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 19,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "give me coupons valid on veg pizzas",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "Demand::productType",
+          "startPos": 25,
+          "endPos": 34
+        }
+      ]
+    },
+    {
+      "text": "get me coupons for dominos veg pizzas",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 19,
+          "endPos": 25
+        },
+        {
+          "entity": "Demand::productType",
+          "startPos": 27,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "get me coupons for mcd veg",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 19,
+          "endPos": 21
+        },
+        {
+          "entity": "Demand::productType",
+          "startPos": 23,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "tell me mcd coupons",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 8,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "get me discounts in dominos",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "get me offers on mcd",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 17,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "get me dominos veg coupons",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 7,
+          "endPos": 13
+        },
+        {
+          "entity": "Demand::productType",
+          "startPos": 15,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "get me discounts in mcd veg",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 22
+        },
+        {
+          "entity": "Demand::productType",
+          "startPos": 24,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "tell me veg burger coupons",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "Demand::productType",
+          "startPos": 8,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "tell me non veg coupons in mcd",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 27,
+          "endPos": 29
+        },
+        {
+          "entity": "Demand::productType",
+          "startPos": 8,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "give me coupons valid on rs 100",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "amount",
+          "startPos": 28,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "get me dominos coupons on rs 500",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 7,
+          "endPos": 13
+        },
+        {
+          "entity": "amount",
+          "startPos": 26,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "tell me discounts valid on rs 100 or less",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "amount",
+          "startPos": 27,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "get me offers valid on rs 100 or less",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "amount",
+          "startPos": 23,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "give me coupons valid on rs 500",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "amount",
+          "startPos": 28,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "i have 500 rs only",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "amount",
+          "startPos": 7,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "i have rs 500 only",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "amount",
+          "startPos": 7,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "show me coupons valid on less than rs 400",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "amount",
+          "startPos": 35,
+          "endPos": 40
+        }
+      ]
+    },
+    {
+      "text": "show me coupons for dominos veg",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 26
+        },
+        {
+          "entity": "Demand::productType",
+          "startPos": 28,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "\"get me coupons below rs 500\"",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "amount",
+          "startPos": 22,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "get me coupons for dominos",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 19,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "get me coupons on rs 300",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "amount",
+          "startPos": 18,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "give me coupons for dominos",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "give me coupons for macdonalds",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "what is free in dominos",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 16,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "give me coupons for mcdonalds for rupees 500",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 28
+        },
+        {
+          "entity": "amount",
+          "startPos": 34,
+          "endPos": 43
+        }
+      ]
+    },
+    {
+      "text": "show me coupons for mcd for rs 400",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 22
+        },
+        {
+          "entity": "amount",
+          "startPos": 28,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "give me coupons for mcdonalds for rs 200",
+      "intent": "GetCoupons",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 28
+        },
+        {
+          "entity": "amount",
+          "startPos": 34,
+          "endPos": 39
+        }
+      ]
+    },
+    {
+      "text": "show me offers",
+      "intent": "GetCoupons",
+      "entities": []
+    },
+    {
+      "text": "give me offers",
+      "intent": "GetCoupons",
+      "entities": []
+    },
+    {
+      "text": "show me coupons",
+      "intent": "GetCoupons",
+      "entities": []
+    },
+    {
+      "text": "recommend me something",
+      "intent": "Recommend",
+      "entities": []
+    },
+    {
+      "text": "suggest me something",
+      "intent": "Recommend",
+      "entities": []
+    },
+    {
+      "text": "recommendations for dominos",
+      "intent": "Recommend",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 20,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "recommendation for mcd",
+      "intent": "Recommend",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 19,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "recommend me something in dominos",
+      "intent": "Recommend",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 26,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "recommend me something in mcd",
+      "intent": "Recommend",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 26,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "recommend me dominos",
+      "intent": "Recommend",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 13,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "dominos recommendations",
+      "intent": "Recommend",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 0,
+          "endPos": 6
+        }
+      ]
+    },
+    {
+      "text": "suggest me something in dominos",
+      "intent": "Recommend",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 24,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "mcd recommendations",
+      "intent": "Recommend",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 0,
+          "endPos": 2
+        }
+      ]
+    },
+    {
+      "text": "menus for mcd",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 10,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "menus for dominos",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 10,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "domi menu",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 0,
+          "endPos": 3
+        }
+      ]
+    },
+    {
+      "text": "mcd menu",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 0,
+          "endPos": 2
+        }
+      ]
+    },
+    {
+      "text": "give me dominos menu",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 8,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "show me mcd menu",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 8,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "show me menu of dominos",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 16,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "give me menu for mcd",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 17,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "give me mcdonalds menu",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 8,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "show me menu for mcdonalds",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 17,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "show me the menu for mcd",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 21,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "show me the menu for dominos",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 21,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "get me menu of mcdonalds",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 15,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "get me menu in dominos",
+      "intent": "ShowMenu",
+      "entities": [
+        {
+          "entity": "merchant",
+          "startPos": 15,
+          "endPos": 21
+        }
+      ]
+    }
+  ]
+}
